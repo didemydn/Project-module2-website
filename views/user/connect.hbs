@@ -1,0 +1,63 @@
+<div id="form">
+  <h2>Signup</h2>
+  <form action="/user/connect" method="POST">
+ 
+    <label> Firstname
+      <input type="text" name="firstname"  placeholder="firstname" required />
+    </label>
+ 
+    <label> Lastname
+      <input type="text" name="lastname" placeholder="lastname" required />
+    </label>
+ 
+    <label> Date of Birth
+      <input type="text" name="DateOfBirth" placeholder="DD/MM/YYYY" required />
+    </label>
+
+    <label> Gender
+      <input type="text" name="Gender" placeholder="gender" required />
+    </label>
+
+    <label> Username
+      <input type="text" name="username"  placeholder="username" required />
+    </label>
+ 
+    <label> Email
+      <input type="email" name="email" placeholder="xxxxx@xxxx.com" required />
+    </label>
+ 
+    <label> Password
+      <input type="password" name="password" placeholder="********" required />
+    </label>
+    <label> Country
+      <input type="text" name="Country" placeholder="country" required />
+    </label>
+
+    <label> City
+      <input type="text" name="City" placeholder="city" required />
+    </label>
+ 
+    <button type="submit">Sign Up</button>
+ 
+    {{!-- error message will be added here --}}
+  </form>
+</div>
+
+
+<form action="/user/connect" method="post">
+
+   <label> Email
+      <input type="email" name="email" placeholder="xxxxx@xxxx.com" required />
+    </label>
+ 
+ 
+    <label> Password
+      <input type="password" name="password" placeholder="********" required />
+    </label>
+ 
+    <button type="submit">Login</button>
+
+     {{#if errorMessage}}
+      <p class="error">{{errorMessage}}</p>
+    {{/if}}
+</form>
