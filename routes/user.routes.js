@@ -18,7 +18,8 @@ router.get("/connect", (req, res, next) => {
 router.post("/connect", (req,res,next) =>{
     console.log("req.body", req.body)
     const {firstname, lastname, gender, dateOfBirth, username, email, password, country, city, address} =req.body;
-    bcrypt
+    const action = req.body.action;
+    if (action === "signup") {bcrypt
     .genSalt(saltRounds)
     .then(salt => bcrypt.hash(password, salt))
     .then(hashedPassword => {
@@ -41,14 +42,8 @@ router.post("/connect", (req,res,next) =>{
     })
     .catch(error => next(error));
 
-});
-
-/* POST LOG IN*/
-
-router.post('/connect', (req, res) => {
-    console.log('req.body', req.body)
-    const {email, password} = req.body;
-    if(!username || !password){
+} else if (action === "login"){
+    if(!email || !password){
         res.render('user/connect', {
             errorMessage: 'Please enter both, email and password to login'
         })
@@ -65,12 +60,18 @@ router.post('/connect', (req, res) => {
             return;
         }
         else if (bcrypt.compareSync(password, user.passwordHash)){
-        res.render('user/connect', user)}
+        res.render('user/profile', {email})}
         else { 
             res.render('user/connect', { errorMessage: 'Incorrect password.' });
           } 
     })
     .catch(error => next(error));
+}
+    else {
+        res.render('user/connect', {
+            errorMessage: "invalid action"
+        })
+    }
 })
 
 
