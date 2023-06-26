@@ -32,18 +32,10 @@ const userSchema = new Schema(
     city: String, 
     address: String,
     image: String,
-    /*items: [{
-      types: Schema.Types.ObjectId,
-      ref: "Item",
-    }],*/
-    /*reviews:[{
-      types: Schema.Types.ObjectId,
-      ref: "Review",
-  }], */
-  
-    timestamps: true
-  
-  }
+  },
+   
+   {timestamps: true}
+    
 );
 
 const User = model("User", userSchema);

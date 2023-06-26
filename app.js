@@ -20,7 +20,7 @@ require("./config")(app);
 
 // default value for title local
 const capitalize = require("./utils/capitalize");
-const projectName = "Project-Module2";
+const projectName = "Project-module2-website";
 
 app.locals.appTitle = `${capitalize(projectName)} created with IronLauncher`;
 
@@ -28,7 +28,7 @@ app.locals.appTitle = `${capitalize(projectName)} created with IronLauncher`;
 const indexRoutes = require("./routes/index.routes");
 app.use("/", indexRoutes);
 
-const userRoutes = require("./routes/user.routes");
+const userRoutes= require("./routes/user.routes");
 app.use("/user", userRoutes);
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
