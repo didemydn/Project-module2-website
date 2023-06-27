@@ -42,7 +42,7 @@
      <input type="hidden" name="action" value="signup">
   
  
-    <button type="submit">Sign Up</button>
+    <button id= "signup-button" type="submit">Sign Up</button>
  
     {{!-- error message will be added here --}}
   </form>
@@ -62,7 +62,7 @@
     
     <input type="hidden" name="action" value="login">
 
-    <button type="submit">Log In</button>
+    <button id= "login-button" type="submit">Log In</button>
 
      {{#if errorMessage}}
       <p class="error">{{errorMessage}}</p>

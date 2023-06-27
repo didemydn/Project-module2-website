@@ -13,6 +13,11 @@ router.get("/", (req, res, next) => {
     res.render("user/connect")
 });
 
+router.get("/home", (req, res, next) => {
+    res.render("user/home")
+});
+
+
 /* POST SIGN UP*/
 
 router.post("/", (req,res,next) =>{
@@ -38,7 +43,7 @@ router.post("/", (req,res,next) =>{
 })
     .then(userFromDB => {
         console.log("new user is", userFromDB);
-        res.redirect(`user/profile/${userFromDB.username}`)
+        res.redirect(`/connect/home`)
     })
     .catch(error => next(error));
 
@@ -60,7 +65,7 @@ router.post("/", (req,res,next) =>{
             return;
         }
         else if (bcrypt.compareSync(password, user.passwordHash)){
-        res.render('user/profile', {email})}
+        res.redirect('/connect/home')}
         else { 
             res.render('user/connect', { errorMessage: 'Incorrect password.' });
         } 
