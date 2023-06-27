@@ -1,5 +1,5 @@
 {
-  "name": "Project-Module2",
+  "name": "Project-module2-website",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -10,10 +10,7 @@
     "nodemon": "^2.0.22"
   },
   "dependencies": {
-<<<<<<< HEAD
     "bcrypt": "^5.1.0",
-=======
->>>>>>> a66f552671abf3c5f8b0a9ddf4e241e9426528ec
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
