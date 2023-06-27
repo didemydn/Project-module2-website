@@ -9,13 +9,13 @@ const User = require ("../models/User.model")
 
 /* GET connect page SIGN UP AND LOGIN*/ 
 
-router.get("/connect", (req, res, next) => {
+router.get("/", (req, res, next) => {
     res.render("user/connect")
 });
 
 /* POST SIGN UP*/
 
-router.post("/connect", (req,res,next) =>{
+router.post("/", (req,res,next) =>{
     console.log("req.body", req.body)
     const {firstname, lastname, gender, dateOfBirth, username, email, password, country, city, address} =req.body;
     const action = req.body.action;
@@ -38,7 +38,7 @@ router.post("/connect", (req,res,next) =>{
 })
     .then(userFromDB => {
         console.log("new user is", userFromDB);
-        res.redirect(`/user/profile/${userFromDB.username}`)
+        res.redirect(`user/profile/${userFromDB.username}`)
     })
     .catch(error => next(error));
 
