@@ -28,14 +28,20 @@ const userSchema = new Schema(
       type: String,
       required: [true, 'Password is required.']
     },
-    country: String,
-    city: String, 
-    address: String,
-    image: String,
+    country: {
+      type: String,
+      required: true},
+    city: {
+      type: String,
+      required: true}, 
+    address: {
+      type: String,
+      required: true},
+    image: {String},
   },
-   
-   {timestamps: true}
-    
+
+  {timestamps: true}
+
 );
 
 const User = model("User", userSchema);

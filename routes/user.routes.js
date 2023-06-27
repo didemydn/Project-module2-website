@@ -23,7 +23,7 @@ router.post("/connect", (req,res,next) =>{
     .genSalt(saltRounds)
     .then(salt => bcrypt.hash(password, salt))
     .then(hashedPassword => {
-      return User.create({
+    return User.create({
         firstname,
         lastname, 
         gender,
@@ -63,7 +63,7 @@ router.post("/connect", (req,res,next) =>{
         res.render('user/profile', {email})}
         else { 
             res.render('user/connect', { errorMessage: 'Incorrect password.' });
-          } 
+        } 
     })
     .catch(error => next(error));
 }
