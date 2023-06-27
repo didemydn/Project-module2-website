@@ -38,6 +38,14 @@ const userSchema = new Schema(
       type: String,
       required: true},
     image: {String},
+    items: [{
+      type: Schema.Types.ObjectId,
+      ref: 'Item',
+    }],
+    reviews: [{
+      type: Schema.Types.ObjectId,
+      ref: 'Review',
+    }]
   },
 
   {timestamps: true}
