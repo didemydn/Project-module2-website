@@ -38,7 +38,7 @@ router.post("/", (req,res,next) =>{
         passwordHash: hashedPassword,
         country,
         city,
-        address
+        address,
     })
 })
     .then(userFromDB => {
