@@ -11,3 +11,16 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+  const connectButton = document.getElementById('profile-button');
+  connectButton.addEventListener('click', function() {
+     window.location.href = '/connect/profile';
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  const connectButton = document.getElementById('logout-button');
+  connectButton.addEventListener('click', function() {
+     window.location.href = '/';
+  });
+});

@@ -4,21 +4,49 @@ const saltRounds = 10;
 const express = require('express');
 const router = express.Router();
 
+
+
 const User = require ("../models/User.model")
+const { isLoggedIn, isLoggedOut } = require('../middleware/route-guard');
 
 
-/* GET connect page SIGN UP AND LOGIN*/ 
 
-router.get("/", (req, res, next) => {
-    res.render("user/connect")
-});
+/* GET */ 
+
+router.get("/",isLoggedOut, (req, res, next) => {
+    if(req.session.currentUser){
+        res.render('user/connect', {loggedIn: true})
+      }
+      else{
+        res.render('user/connect')
+      }
+        
+    });
 
 router.get("/home", (req, res, next) => {
     res.render("user/home")
 });
 
+router.get("/profile",isLoggedIn, (req, res, next) => { 
+    
+    if(req.session.currentUser){
+    User.findOne({ email: req.session.currentUser.email })
+     .then(foundUser => {
+         console.log('foundUser', foundUser)
+         foundUser.loggedIn = true; // adding a property loggedIn and setting it to true
+         res.render('user/profile', {foundUser});
+     })
+     .catch(err => {
+        console.log(err);
+        res.render('user/profile')
+     })
+ }
+ else{
+   res.render('user/profile')
+ }
+});
 
-/* POST SIGN UP*/
+/* POST SIGN UP and LOG IN*/
 
 router.post("/", (req,res,next) =>{
     console.log("req.body", req.body)
@@ -42,6 +70,9 @@ router.post("/", (req,res,next) =>{
     })
 })
     .then(userFromDB => {
+        const {email} = userFromDB;
+      
+        req.session.currentUser = { email }; 
         console.log("new user is", userFromDB);
         res.redirect(`/connect/home`)
     })
@@ -65,6 +96,9 @@ router.post("/", (req,res,next) =>{
             return;
         }
         else if (bcrypt.compareSync(password, user.passwordHash)){
+        const { email } = user;
+        req.session.currentUser = { email: user.email };  // add property currentUser to my session
+        user.loggedIn = true;
         res.redirect('/connect/home')}
         else { 
             res.render('user/connect', { errorMessage: 'Incorrect password.' });
@@ -79,6 +113,12 @@ router.post("/", (req,res,next) =>{
     }
 })
 
-
+router.post('/logout', isLoggedIn, (req,res) =>{
+    req.session.destroy(err => {
+      if (err) console.log(err);
+      res.redirect('/');
+    });
+  })
+  
 
 module.exports = router;
