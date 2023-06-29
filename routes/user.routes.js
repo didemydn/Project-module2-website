@@ -13,34 +13,20 @@ const { isLoggedIn, isLoggedOut } = require('../middleware/route-guard');
 
 /* GET */ 
 
-router.get("/",isLoggedOut, (req, res, next) => {
-    if(req.session.currentUser){
-        res.render('user/connect', {loggedIn: true})
-      }
-      else{
+router.get("/", (req, res, next) => {
         res.render('user/connect')
-      }
-        
     });
 
 router.get("/home", (req, res, next) => {
     res.render("user/home")
 });
 
-router.get("/profile",isLoggedIn, (req, res, next) => { 
-    
+router.get("/profile", (req, res, next) => { 
     if(req.session.currentUser){
-    User.findOne({ email: req.session.currentUser.email })
-     .then(foundUser => {
-         console.log('foundUser', foundUser)
-         foundUser.loggedIn = true; // adding a property loggedIn and setting it to true
-         res.render('user/profile', {foundUser});
-     })
-     .catch(err => {
-        console.log(err);
-        res.render('user/profile')
-     })
- }
+        const foundUser=req.session.currentUser;
+        console.log('foundUser', foundUser);
+        res.render('user/profile', {foundUser});
+    }
  else{
    res.render('user/profile')
  }
@@ -97,7 +83,7 @@ router.post("/", (req,res,next) =>{
         }
         else if (bcrypt.compareSync(password, user.passwordHash)){
         const { email } = user;
-        req.session.currentUser = { email: user.email };  // add property currentUser to my session
+        req.session.currentUser = user;  // add property currentUser to my session
         user.loggedIn = true;
         res.redirect('/connect/home')}
         else { 

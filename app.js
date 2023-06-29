@@ -14,8 +14,11 @@ const express = require("express");
 const hbs = require("hbs");
 const app = express();
 
+
+
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
 require("./config")(app);
+require('./config/session.config')(app);
 
 // default value for title local
 const capitalize = require("./utils/capitalize");
