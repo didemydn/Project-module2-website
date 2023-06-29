@@ -32,6 +32,11 @@ router.get("/profile", (req, res, next) => {
  }
 });
 
+router.get('/profile/edit', isLoggedIn, (req, res) => {
+    // Render the edit profile form
+    res.render('user/edit-profile', { foundUser: req.session.currentUser });
+  });
+
 /* POST SIGN UP and LOG IN*/
 
 router.post("/", (req,res,next) =>{
@@ -98,6 +103,54 @@ router.post("/", (req,res,next) =>{
         })
     }
 })
+
+/* POST editting user profile*/
+
+router.post('/profile/edit', isLoggedIn, (req, res) => {
+    const { email, username } = req.body; // Update the user's profile details in the database
+    User.findOneAndUpdate(
+      { _id: req.session.currentUser._id },
+      { email, username },
+      { new: true }
+    )
+      .then(updatedUser => {
+        req.session.currentUser = updatedUser; // Update the session with the new user details
+        res.redirect('/connect/profile');
+      })
+      .catch(err => {
+        console.log(err);
+        res.render('user/edit-profile', {
+          errorMessage: 'Failed to update profile. Please try again.',
+          foundUser: req.session.currentUser
+        });
+      });
+  });
+
+/* POST DELETE*/
+
+  router.post('/profile/delete', isLoggedIn, (req, res) => {
+    // Delete the user's profile from the database
+    User.findOneAndDelete({ _id: req.session.currentUser._id })
+      .then(() => {
+        // Destroy the session and redirect to the homepage
+        req.session.destroy(err => {
+          if (err) {
+            console.log(err);
+          }
+          res.redirect('/');
+        });
+      })
+      .catch(err => {
+        console.log(err);
+        res.render('user/profile', {
+          errorMessage: 'Failed to delete profile. Please try again.',
+          foundUser: req.session.currentUser
+        });
+      });
+  });
+
+  /* POST LOGOUT*/
+
 
 router.post('/logout', isLoggedIn, (req,res) =>{
     req.session.destroy(err => {
