@@ -1,15 +1,15 @@
 <div id="form">
   <h2>Signup</h2>
   <form action="/user/connect" method="POST">
- 
+
     <label> Firstname
       <input type="text" name="firstname"  placeholder="firstname" required />
     </label>
- 
+
     <label> Lastname
       <input type="text" name="lastname" placeholder="lastname" required />
     </label>
- 
+
     <label> Date of Birth
       <input type="text" name="DateOfBirth" placeholder="DD/MM/YYYY" required />
     </label>
@@ -23,11 +23,11 @@
     <label> Username
       <input type="text" name="username"  placeholder="username" required />
     </label>
- 
+
     <label> Email
       <input type="email" name="email" placeholder="xxxxx@xxxx.com" required />
     </label>
- 
+
     <label> Password
       <input type="password" name="password" placeholder="********" required />
     </label>
@@ -39,32 +39,33 @@
       <input type="text" name="City" placeholder="city" required />
     </label>
 
-     <input type="hidden" name="action" value="signup">
+    <input type="hidden" name="action" value="signup">
   
- 
+
     <button type="submit">Sign Up</button>
- 
+
     {{!-- error message will be added here --}}
   </form>
 </div>
 
 
-    <form action="/user/connect" method="POST">
+<form action="/user/connect" method="POST">
 
-   <label> Email
-      <input type="email" name="email" placeholder="xxxxx@xxxx.com" required />
-    </label>
- 
- 
-    <label> Password
-      <input type="password" name="password" placeholder="********" required />
-    </label>
-    
-    <input type="hidden" name="action" value="login">
+  <label> Email
+    <input type="email" name="email" placeholder="xxxxx@xxxx.com" required />
+  </label>
 
-    <button type="submit">Log In</button>
 
-     {{#if errorMessage}}
-      <p class="error">{{errorMessage}}</p>
-    {{/if}}
+  <label> Password
+    <input type="password" name="password" placeholder="********" required />
+  </label>
+  
+  <input type="hidden" name="action" value="login">
+
+  <button type="submit">Log In</button>
+
+  {{#if errorMessage}}
+    <p class="error">{{errorMessage}}</p>
+  {{/if}}
+
 </form>
