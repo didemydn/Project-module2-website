@@ -37,6 +37,9 @@ router.get('/profile/edit', isLoggedIn, (req, res) => {
     res.render('user/edit-profile', { foundUser: req.session.currentUser });
   });
 
+ 
+
+  
 /* POST SIGN UP and LOG IN*/
 
 router.post("/", (req,res,next) =>{
@@ -148,6 +151,9 @@ router.post('/profile/edit', isLoggedIn, (req, res) => {
         });
       });
   });
+
+
+
 
   /* POST LOGOUT*/
 
