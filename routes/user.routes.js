@@ -21,15 +21,15 @@ router.get("/home", isLoggedIn,(req, res, next) => {
     res.render("index", {isLoggedIn: true})
 });
 
-router.get("/profile", isLoggedIn, (req, res, next) => { 
+router.get("/profile", isLoggedIn, (req, res, next) => {
     if(req.session.currentUser){
         const foundUser=req.session.currentUser;
         console.log('foundUser', foundUser);
         res.render('user/profile', {foundUser, isLoggedIn: true});
     }
- else{
-   res.render('user/profile', {isLoggedIn: false})
- }
+    else{
+      res.render('user/profile', {isLoggedIn: false})
+    }
 });
 
 router.get('/profile/edit', isLoggedIn, (req, res) => {
