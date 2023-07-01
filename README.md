@@ -1,6 +1,6 @@
 # SHARING CLOTHES
 
-## https://sharing-store.cyclic.app/connect/home
+## https://sharing-store.cyclic.app/
 
 ## Description
 
