@@ -1,4 +1,6 @@
-<form action="/donate" method="POST">
+<h1>Donate an item</h1>
+
+<form action="/donate" method="POST" enctype="multipart/form-data">
     <label for="title">Title:</label>
     <input type="text" id="title" name="title" required>
 
@@ -72,5 +74,8 @@
     <label for="phone">Phone:</label>
     <input type="tel" id="phone" name="phone" required>
 
-    <button type="submit">Submit</button>
-    </form>
+    <label for="picture">Picture:</label>
+    <input type="file" id="picture" name="picture" accept="image/*">
+
+    <button type="submit">Donate</button>
+</form>
