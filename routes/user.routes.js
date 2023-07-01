@@ -17,8 +17,8 @@ router.get("/", (req, res, next) => {
         res.render('user/connect')
     });
 
-router.get("/home", (req, res, next) => {
-    res.render("user/home")
+router.get("/home", isLoggedIn, (req, res, next) => {
+    res.render("layout")
 });
 
 router.get("/profile", (req, res, next) => { 

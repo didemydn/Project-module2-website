@@ -10,3 +10,8 @@ a {
 h1 {
   color: 15px;
 }
+
+.logo {
+  width: 100px;
+  height: auto;
+}
