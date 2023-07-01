@@ -25,8 +25,23 @@ const itemSchema = new Schema({
         enum: ["Brand New", "Almost New", "Good", "Acceptable", "Repairable"],
         required: true,
     },
-    description: String,
-    image: String,
+    location: {
+        type: String,
+        required: true},
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+        lowercase: true,
+        trim: true
+      },
+    phone: {
+        type: String,
+        required: true},
+    picture: {
+        type: String,
+        required: true
+    },
     UserId: {
         type: Schema.Types.ObjectId,
         ref: 'User'
