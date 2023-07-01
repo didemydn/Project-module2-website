@@ -13,22 +13,22 @@ const { isLoggedIn, isLoggedOut } = require('../middleware/route-guard');
 
 /* GET */ 
 
-router.get("/", (req, res, next) => {
+router.get("/",isLoggedOut, (req, res, next) => {
         res.render('user/connect')
     });
 
-router.get("/home", isLoggedIn, (req, res, next) => {
-    res.render("layout")
+router.get("/home", isLoggedIn,(req, res, next) => {
+    res.render("user/home", {isLoggedIn: true})
 });
 
-router.get("/profile", (req, res, next) => { 
+router.get("/profile", isLoggedIn, (req, res, next) => { 
     if(req.session.currentUser){
         const foundUser=req.session.currentUser;
         console.log('foundUser', foundUser);
-        res.render('user/profile', {foundUser});
+        res.render('user/profile', {foundUser, isLoggedIn: true});
     }
  else{
-   res.render('user/profile')
+   res.render('user/profile', {isLoggedIn: false})
  }
 });
 
