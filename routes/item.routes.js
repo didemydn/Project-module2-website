@@ -23,17 +23,34 @@ router.get('/connect/favorite', (req, res) => {
 
   router.get('/connect/mydonations/:itemId', (req, res, next) => {
     const { itemId } = req.params;
-    // Assuming you have the item details available in the 'item' variable
+    
     Item.findById(itemId)
       .then(foundItem => {
-        console.log('foundItem', foundItem); // Replace with your own logic to fetch the item details
+        console.log('foundItem', foundItem); 
         res.render('item/item-details', { foundItem });
       })
       .catch(error => {
-        // Handle any potential errors
+        
         next(error);
       });
   }); 
+
+  //EDIT ITEM GET ROUTE
+
+//   router.get('/connect/mydonations/:itemId/edit', (req, res, next) => {
+//     const { itemId } = req.params;
+  
+//     Item.findById(itemId)
+        
+//       .then(foundItem => {
+//         console.log('foundItem', foundItem);
+//         res.render('item/edit-item', { foundItem });
+//       })
+//       .catch(error => {
+//         next(error);
+//       });
+//   });
+  
 
 // POST donate form
 router.post('/donate', upload.single('picture'), async (req, res) => {
@@ -66,7 +83,7 @@ router.post('/donate', upload.single('picture'), async (req, res) => {
 
 // EDIT item
 
-router.post('/donate/edit', isLoggedIn, (req, res) => {
+router.post('/connect/mydonations/:itemId/edit', isLoggedIn, (req, res) => {
     const { title, category, type, size, condition, location, email, phone } = req.body; // Update the user's profile details in the database
     Item.findOneAndUpdate(
       { _id: req.session.currentUser._id },
@@ -87,5 +104,18 @@ router.post('/donate/edit', isLoggedIn, (req, res) => {
   });
 
 // DELETE item 
+
+// router.post('/connect/mydonations/:itemId/delete', (req, res, next) => {
+//     const { itemId } = req.params;
+//     Item.findOneAndDelete({ _id: itemId })
+//       .then(deletedItem => {
+//         console.log('Deleted item:', deletedItem);
+        
+//         res.redirect('/connect/mydonations');
+//       })
+//       .catch(error => {
+//         next(error);
+//       });
+//   });
 
 module.exports = router;
