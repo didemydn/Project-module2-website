@@ -21,11 +21,19 @@ router.get('/connect/favorite', (req, res) => {
     res.render('item/favorite-items'); 
   });
 
-router.get('/donate/edit', (req, res) => {
-    res.render('item/edit-item'); 
-  });
- 
-
+  router.get('/connect/mydonations/:itemId', (req, res, next) => {
+    const { itemId } = req.params;
+    // Assuming you have the item details available in the 'item' variable
+    Item.findById(itemId)
+      .then(foundItem => {
+        console.log('foundItem', foundItem); // Replace with your own logic to fetch the item details
+        res.render('item/item-details', { foundItem });
+      })
+      .catch(error => {
+        // Handle any potential errors
+        next(error);
+      });
+  }); 
 
 // POST donate form
 router.post('/donate', upload.single('picture'), async (req, res) => {
