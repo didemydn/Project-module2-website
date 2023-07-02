@@ -3,8 +3,15 @@
 <ul>
   {{#each item}}
     <li> 
+        <a href="/connect/mydonations/{{_id}}">
         <h4>{{this.title}}</h4>
+        </a>
+        
+        <a href="/connect/mydonations/{{_id}}">
         <img src="{{this.picture}}" alt="Donated Item">
+        </a>
+     
+         
     </li>
   {{/each}}
 </ul>
