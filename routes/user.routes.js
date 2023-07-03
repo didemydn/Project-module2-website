@@ -7,6 +7,7 @@ const router = express.Router();
 
 
 const User = require ("../models/User.model")
+const Review = require ("../models/Review.model")
 const { isLoggedIn, isLoggedOut } = require('../middleware/route-guard');
 
 
@@ -22,14 +23,22 @@ router.get("/", (req, res, next) => {
 // });
 
 router.get("/profile", isLoggedIn, (req, res, next) => {
-    if(req.session.currentUser){
-        const foundUser=req.session.currentUser;
+  if (req.session.currentUser) {
+    const userId = req.session.currentUser._id;
+
+    Review.find({ UserId: userId })
+      .then((reviews) => {
+        const foundUser = req.session.currentUser;
         console.log('foundUser', foundUser);
-        res.render('user/profile', {foundUser, isLoggedIn: true});
-    }
-    else{
-      res.render('user/profile', {isLoggedIn: false})
-    }
+        res.render('user/profile', { foundUser, reviews, isLoggedIn: true });
+      })
+      .catch((error) => {
+        console.log(error);
+        res.render('user/profile', { isLoggedIn: false });
+      });
+  } else {
+    res.render('user/profile', { isLoggedIn: false });
+  }
 });
 
 router.get('/profile/edit', isLoggedIn, (req, res) => {

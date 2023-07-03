@@ -24,6 +24,15 @@
      </form>
       <p>Email: {{foundUser.email}}</p>
       <p>Username: {{foundUser.username}}</p>
+      
+      <h2>Reviews</h2>
+      <ul>
+        {{#each reviews}}
+          <li>{{this.comment}}</li>
+        {{/each}}
+      </ul>
+
+
    </div>
 
    {{else}}
