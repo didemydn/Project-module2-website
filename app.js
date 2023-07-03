@@ -37,8 +37,9 @@ app.use("/connect/review", reviewRoutes);
 const itemRoutes = require('./routes/item.routes');
 app.use('/', itemRoutes);
 
-app.use(express.urlencoded({ extended: true }));
+//app.use(express.urlencoded({ extended: true }));
 
+hbs.registerPartials(__dirname + "/views/partials")
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
