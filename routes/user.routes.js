@@ -17,9 +17,9 @@ router.get("/", (req, res, next) => {
         res.render('user/connect')
     });
 
-router.get("/home", isLoggedIn,(req, res, next) => {
-    res.render("index", {isLoggedIn: true})
-});
+// router.get("/home", isLoggedIn,(req, res, next) => {
+//     res.render("index", {isLoggedIn: true})
+// });
 
 router.get("/profile", isLoggedIn, (req, res, next) => {
     if(req.session.currentUser){

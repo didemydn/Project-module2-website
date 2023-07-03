@@ -28,7 +28,7 @@
 document.addEventListener('click', function(event) {
   if (event.target.matches('.item-button')) {
     const itemId = event.target.dataset.itemId;
-    window.location.href = '/details';
+    window.location.href = `/details/${itemId}`;
     console.log('Clicked item ID:', itemId);
   }
 });

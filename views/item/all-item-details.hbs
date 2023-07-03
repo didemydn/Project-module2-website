@@ -19,11 +19,13 @@
   <p>Size: {{foundItem.size}}</p>
   <p>Condition: {{foundItem.condition}}</p>
   <p>Location: {{foundItem.location}}</p>
-  <p>Email: {{foundItem.email}}</p>
-  <p>Phone: {{foundItem.phone}}</p>
   {{#if foundItem.picture}}
     <img src="{{foundItem.picture}}" alt="{{foundItem.title}} Picture">
   {{/if}}
+    {{#if isLoggedIn}}
+  <p>Email: {{foundItem.email}}</p>
+  <p>Phone: {{foundItem.phone}}</p>
+   {{/if}}
 </div>
 
    <script src="/js/script.js"></script>
