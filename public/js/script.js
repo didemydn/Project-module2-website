@@ -24,3 +24,11 @@
 //      window.location.href = '/';
 //   });
 // });
+
+document.addEventListener('click', function(event) {
+  if (event.target.matches('.item-button')) {
+    const itemId = event.target.dataset.itemId;
+    window.location.href = '/details';
+    console.log('Clicked item ID:', itemId);
+  }
+});

@@ -25,7 +25,19 @@ router.get('/connect/favorite', (req, res) => {
     res.render('item/favorite-items'); 
   });
 
- // Item details
+// all Item details (WORKING)
+
+router.get('/details/:itemId', (req, res) => {
+    const { itemId } = req.params;
+    Item.findById(itemId)
+      .then(foundItem => {
+        console.log('foundItem', foundItem); 
+        res.render('item/all-item-details', { foundItem });
+      })
+      .catch(error => { next(error);});
+ });
+
+ // my Item details
  
   router.get('/connect/mydonations/:itemId', (req, res, next) => {
     const { itemId } = req.params;
