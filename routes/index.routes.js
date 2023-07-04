@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Item = require('../models/Item.model');
-const { isLoggedIn } = require('../middleware/route-guard');
+const { isLoggedIn, isLoggedOut } = require('../middleware/route-guard');
 
 /* GET home page (for everybody)*/
 router.get("/", (req, res, next) => {

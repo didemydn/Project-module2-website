@@ -42,18 +42,19 @@ router.get('/connect/favorite', (req, res) => {
 
   //Edit Item details
 
-router.get('/connect/mydonations/:itemId/edit', (req, res, next) => {
-  const { itemId } = req.params;
-  Item.findById(itemId)        
-  .then(itemToEdit  => {
-    console.log('itemToEdit', itemToEdit);
-   res.render('item/edit-item', { item: itemToEdit });
-  })
- .catch(error => {
-  next(error);
+  router.get('/connect/mydonations/:itemId/edit', (req, res, next) => {
+    const userLogged = req.session.currentUser ? true : false;
+    
+    const { itemId } = req.params;
+    Item.findById(itemId)        
+    .then(itemToEdit  => {
+      console.log('itemToEdit', itemToEdit);
+     res.render('item/edit-item', { item: itemToEdit, isLoggedIn: userLogged });
+    })
+   .catch(error => {
+    next(error);
+    });
   });
-});
-  
 
 // POST donate form
 router.post('/donate', upload.single('picture'), async (req, res) => {
@@ -86,10 +87,11 @@ router.post('/donate', upload.single('picture'), async (req, res) => {
 
 // EDIT item
 
-router.post('/connect/mydonations/:itemId/edit', isLoggedIn, (req, res) => {
+router.post('/connect/mydonations/:itemId/edit', (req, res) => {
+  
     const { itemId } = req.params;
     const { title, category, type, size, condition, location, email, phone, picture } = req.body; 
-  
+      
   Item.findByIdAndUpdate(itemId, { title, category, type, size, condition, location, email, phone, picture }, { new: true })
     .then(updatedItem => res.redirect(`/connect/mydonations/${updatedItem._id}`)) // go to the details page to see the updates
     .catch(error => next(error));
