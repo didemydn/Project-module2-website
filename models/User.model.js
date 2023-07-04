@@ -43,8 +43,14 @@ const userSchema = new Schema(
       ref: 'Item',
     }],
     reviews: [{
-      type: Schema.Types.ObjectId,
-      ref: 'Review',
+      // type: Schema.Types.ObjectId,
+      // ref: 'Review',
+      reviewer: String,
+      content: String,
+      timestamp: {
+        type: Date,
+        default: Date.now
+      }
     }]
   },
 
