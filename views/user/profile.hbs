@@ -11,8 +11,6 @@
 
 <body>
 
-   <h1>Profile</h1>
-
    {{#if foundUser}}
    <h1>Welcome {{foundUser.username}}! 😊</h1>
    <h2>Your Profile Details</h2>
@@ -24,7 +22,7 @@
      </form>
       <p>Email: {{foundUser.email}}</p>
       <p>Username: {{foundUser.username}}</p>
-      
+
       <h2>Reviews</h2>
       <ul>
         {{#each reviews}}

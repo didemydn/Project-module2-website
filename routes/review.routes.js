@@ -6,14 +6,15 @@ const { isLoggedIn, isLoggedOut } = require('../middleware/route-guard');
 
 /* GET REVIEW*/
 
-router.get("/",  isLoggedIn,(req, res, next) => {
-    res.render('review/review', { foundUser: req.session.currentUser })
+router.get("/",(req, res, next) => {
+  const userLogged = req.session.currentUser ? true : false 
+    res.render('review/review', { foundUser: req.session.currentUser, isLoggedIn: userLogged })
 });
 
 
 /* POST REVIEW*/
 
-router.post('/', isLoggedIn, (req, res) => {
+router.post('/', (req, res) => {
     console.log("comment", req.body);
     const { comment } = req.body;
     const userId = req.session.currentUser._id;

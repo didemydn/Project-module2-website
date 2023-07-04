@@ -8,21 +8,24 @@ const { isLoggedIn, isLoggedOut } = require('../middleware/route-guard');
 
 // Donate
 router.get('/donate', (req, res) => {
-  res.render('item/donate'); 
+  const userLogged = req.session.currentUser ? true : false 
+  res.render('item/donate', {isLoggedIn: userLogged}); 
 });
 
 // My donations
 
 router.get('/connect/mydonations', (req, res) => {
+  const userLogged = req.session.currentUser ? true : false 
     Item.find()
-    .then((itemsFromDB) => res.render("item/donations", { item: itemsFromDB }))
+    .then((itemsFromDB) => res.render("item/donations", { item: itemsFromDB, isLoggedIn: userLogged }))
     .catch((err) => console.log(`Error while getting items from the DB: ${err}`));
 });
   
 // My favorite items
 
 router.get('/connect/favorite', (req, res) => {
-    res.render('item/favorite-items'); 
+  const userLogged = req.session.currentUser ? true : false;
+    res.render('item/favorite-items', {isLoggedIn: userLogged}); 
   });
 
  // my Item details
