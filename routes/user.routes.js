@@ -102,6 +102,7 @@ router.post("/", (req,res,next) =>{
         const { email } = user;
         req.session.currentUser = user;  // add property currentUser to my session
         user.loggedIn = true;
+        console.log(user);
         res.redirect('/connect/home')}
         else { 
             res.render('user/connect', { errorMessage: 'Incorrect password.' });

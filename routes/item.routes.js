@@ -3,6 +3,7 @@ const router = express.Router();
 const Item = require('../models/Item.model');
 const upload = require('../config/cloudinary.config');
 const { isLoggedIn, isLoggedOut } = require('../middleware/route-guard');
+const { ObjectId } = require('mongodb');
 
 // GET Routes
 
@@ -16,7 +17,9 @@ router.get('/donate', (req, res) => {
 
 router.get('/connect/mydonations', (req, res) => {
   const userLogged = req.session.currentUser ? true : false 
-    Item.find()
+  const UserId = req.session.currentUser._id;
+  console.log("UserID: ", UserId)
+    Item.find({UserId: new ObjectId(UserId)})
     .then((itemsFromDB) => res.render("item/donations", { item: itemsFromDB, isLoggedIn: userLogged }))
     .catch((err) => console.log(`Error while getting items from the DB: ${err}`));
 });
@@ -61,6 +64,7 @@ router.post('/donate', upload.single('picture'), async (req, res) => {
     try {
         const { title, category, type, size, condition, location, email, phone } = req.body;
         const picture = req.file.path;
+        const UserId = req.session.currentUser._id;
 
         // Create a new item
         const newItem = new Item({
@@ -72,7 +76,8 @@ router.post('/donate', upload.single('picture'), async (req, res) => {
         location,
         email,
         phone,
-        picture
+        picture,
+        UserId
         });
 
         // Save the item to the database
