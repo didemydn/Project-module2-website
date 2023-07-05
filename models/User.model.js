@@ -37,7 +37,7 @@ const userSchema = new Schema(
     address: {
       type: String,
       required: true},
-    image: {String},
+    image: String,
     items: [{
       type: Schema.Types.ObjectId,
       ref: 'Item',
@@ -54,7 +54,7 @@ const userSchema = new Schema(
     }]
   },
 
-  {timestamps: true}
+  { timestamps: true }
 
 );
 

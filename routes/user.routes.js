@@ -7,6 +7,7 @@ const router = express.Router();
 
 
 const User = require ("../models/User.model")
+const Review = require('../models/Review.model');
 const { isLoggedIn, isLoggedOut } = require('../middleware/route-guard');
 
 
@@ -21,15 +22,27 @@ router.get("/", (req, res, next) => {
 //     res.render("index", {isLoggedIn: true})
 // });
 
-router.get("/profile", isLoggedIn, (req, res, next) => {
-    if(req.session.currentUser){
-        const foundUser=req.session.currentUser;
-        console.log('foundUser', foundUser);
-        res.render('user/profile', {foundUser, isLoggedIn: true});
-    }
-    else{
-      res.render('user/profile', {isLoggedIn: false})
-    }
+router.get("/profile", isLoggedIn, async (req, res, next) => {
+  try {
+    const userId = req.session.currentUser._id;
+
+    // Fetch the user's reviews/comments from the database
+    const foundUser = await User.findById(userId).populate('reviews');
+
+    res.render('user/profile', { foundUser, isLoggedIn: true });
+  } catch (error) {
+    console.log(error);
+    res.redirect('/connect/home');
+  }
+
+    // if(req.session.currentUser){
+    //     const foundUser=req.session.currentUser;
+    //     console.log('foundUser', foundUser);
+    //     res.render('user/profile', {foundUser, isLoggedIn: true});
+    // }
+    // else{
+    //   res.render('user/profile', {isLoggedIn: false})
+    // }
 });
 
 router.get('/profile/edit', isLoggedIn, (req, res) => {
@@ -37,9 +50,9 @@ router.get('/profile/edit', isLoggedIn, (req, res) => {
     res.render('user/edit-profile', { foundUser: req.session.currentUser });
   });
 
- 
 
-  
+
+
 /* POST SIGN UP and LOG IN*/
 
 router.post("/", (req,res,next) =>{
@@ -106,6 +119,27 @@ router.post("/", (req,res,next) =>{
         })
     }
 })
+
+
+
+
+// Update the route handler for the user profile page to fetch reviews
+router.get('/profile', isLoggedIn, async (req, res, next) => {
+  try {
+    const userId = req.session.currentUser._id;
+
+    // Fetch the user's reviews/comments from the database
+    const foundUser = await User.findById(userId).populate('reviews');
+
+    res.render('user/profile', { foundUser, isLoggedIn: true });
+  } catch (error) {
+    console.log(error);
+    res.redirect('/connect/home');
+  }
+});
+
+
+
 
 /* POST editting user profile*/
 

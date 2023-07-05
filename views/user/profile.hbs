@@ -18,13 +18,31 @@
    <h2>Your Profile Details</h2>
 
    <div>
-    <a href="/connect/profile/edit">Edit Profile</a>
-    <form method="POST" action="/connect/profile/delete">
-    <button type="submit" onclick="return confirm('Are you sure you want to delete your profile?')">Delete Profile</button>
-     </form>
+      <a href="/connect/profile/edit">Edit Profile</a>
+      <form method="POST" action="/connect/profile/delete">
+         <button type="submit" onclick="return confirm('Are you sure you want to delete your profile?')">Delete Profile</button>
+      </form>
       <p>Email: {{foundUser.email}}</p>
       <p>Username: {{foundUser.username}}</p>
    </div>
+
+
+
+{{!-- Users comments section bellow --}}
+   <h2>Reviews from other users:</h2>
+   {{#if foundUser.reviews}}
+      {{#each foundUser.reviews}}
+         <div class="review">
+            <h3>Reviewer: {{this.reviewer}}</h3>
+            <p>{{this.content}}</p>
+            <p>Timestamp: {{this.timestamp}}</p>
+         </div>
+      {{/each}}
+   {{else}}
+      <p>No reviews yet.</p>
+   {{/if}}
+
+
 
    {{else}}
    <p>Please log in to view your profile.</p>
