@@ -28,17 +28,17 @@ router.get("/connect/home",isLoggedIn, (req, res, next) => {
 });
 
 /* GET item details page*/
-
-router.get('/details/:itemId', (req, res) => {
-  const userLogged = req.session.currentUser ? true : false 
-  console.log(req.session);
-  const { itemId } = req.params;
-  Item.findById(itemId)
+router.get('/details/:itemId', (req, res, next) => {
+ const userLogged = req.session.currentUser ? true : false 
+ console.log(req.session);
+   const { itemId } = req.params;
+ Item.findById(itemId)
+  
     .then(foundItem => {
       console.log('foundItem', foundItem); 
       res.render('item/all-item-details', { foundItem, isLoggedIn: userLogged });
     })
     .catch(error => { next(error);});
-});
+   });
 
 module.exports = router;

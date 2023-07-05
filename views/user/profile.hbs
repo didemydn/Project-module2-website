@@ -12,9 +12,8 @@
 <body>
 
    {{#if foundUser}}
-   <h1>Welcome {{foundUser.username}}! 😊</h1>
-   <h2>Your Profile Details</h2>
-
+   <h1>Hello {{foundUser.username}}! 😊</h1>
+   
    <div>
     <a href="/connect/profile/edit">Edit Profile</a>
     <form method="POST" action="/connect/profile/delete">

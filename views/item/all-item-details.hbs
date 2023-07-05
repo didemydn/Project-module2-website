@@ -13,16 +13,18 @@
 
 <div>
     <div>
+  {{#if foundItem.picture}}
+    <img src="{{foundItem.picture}}" alt="{{foundItem.title}} Picture">
   <p>Title: {{foundItem.title}}</p>
   <p>Category: {{foundItem.category}}</p>
   <p>Type: {{foundItem.type}}</p>
   <p>Size: {{foundItem.size}}</p>
   <p>Condition: {{foundItem.condition}}</p>
   <p>Location: {{foundItem.location}}</p>
-  {{#if foundItem.picture}}
-    <img src="{{foundItem.picture}}" alt="{{foundItem.title}} Picture">
+  
   {{/if}}
     {{#if isLoggedIn}}
+  <p>Donator's name: {{foundUser.username}}</p>
   <p>Email: {{foundItem.email}}</p>
   <p>Phone: {{foundItem.phone}}</p>
 

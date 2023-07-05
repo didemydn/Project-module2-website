@@ -21,15 +21,20 @@
          <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto">
                {{#if isLoggedIn}}
+
                <li class="nav-item">
-                  <a href="/donate" class="btn btn-success me-2">Donate</a> {{!-- Add item form link --}}
+                  <a href="/connect/home" class="btn btn-success me-2">Home</a> {{!-- Add item form link --}}
+               </li>
+
+               <li class="nav-item">
+                  <a href="/donate" class="btn btn-danger me-2">Donate</a> {{!-- Add item form link --}}
                </li>
                
                <li class="nav-item">
                   <a href="/connect/mydonations" class="btn btn-warning me-2">My Donations</a>  {{!-- My donnations link --}}
                </li>
                <li class="nav-item">
-                  <a href="/connect/favorite" class="btn btn-info me-2">My Favorite Items</a>  {{!-- Favorite Items link--}}
+                  <a href="/connect/favorite" class="btn btn-info me-2">My Favorites</a>  {{!-- Favorite Items link--}}
                </li>
                                  
                <li class="nav-item">

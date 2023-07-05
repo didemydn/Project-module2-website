@@ -42,8 +42,9 @@ router.get("/profile", isLoggedIn, (req, res, next) => {
 });
 
 router.get('/profile/edit', isLoggedIn, (req, res) => {
+  const userLogged = req.session.currentUser ? true : false;
     // Render the edit profile form
-    res.render('user/edit-profile', { foundUser: req.session.currentUser });
+    res.render('user/edit-profile', { isLoggedIn: userLogged });
   });
 
  

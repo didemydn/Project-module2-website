@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const Item = require('../models/Item.model');
+const User = require ("../models/User.model")
+const Review = require ("../models/Review.model")
 const upload = require('../config/cloudinary.config');
 const { isLoggedIn, isLoggedOut } = require('../middleware/route-guard');
 const { ObjectId } = require('mongodb');
@@ -33,21 +35,22 @@ router.get('/connect/favorite', (req, res) => {
 
  // my Item details
 
-router.get('/connect/mydonations/:itemId', (req, res, next) => {
-    const { itemId } = req.params;
-    Item.findById(itemId)
-        .then(foundItem => {
-        console.log('foundItem', foundItem); 
-        res.render('item/item-details', { foundItem });
-        })
-        .catch(error => { next(error);});
+ 
+router.get('/connect/mydonations/:itemId',isLoggedIn, (req, res, next) => {
+const userLogged = req.session.currentUser ? true : false;
+const { itemId } = req.params;
+Item.findById(itemId)
+.then(foundItem => {
+ console.log('foundItem', foundItem); 
+ res.render('item/item-details', { foundItem, isLoggedIn: userLogged  });
+ })
+  .catch(error => { next(error);});
 }); 
 
   //Edit Item details
 
-  router.get('/connect/mydonations/:itemId/edit', (req, res, next) => {
+  router.get('/connect/mydonations/:itemId/edit', isLoggedIn, (req, res, next) => {
     const userLogged = req.session.currentUser ? true : false;
-    
     const { itemId } = req.params;
     Item.findById(itemId)        
     .then(itemToEdit  => {
