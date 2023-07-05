@@ -87,10 +87,11 @@ router.post('/donate', upload.single('picture'), async (req, res) => {
 
 // EDIT item
 
-router.post('/connect/mydonations/:itemId/edit', (req, res) => {
+router.post('/connect/mydonations/:itemId/edit', upload.single('picture'), (req, res) => {
   
     const { itemId } = req.params;
-    const { title, category, type, size, condition, location, email, phone, picture } = req.body; 
+    const { title, category, type, size, condition, location, email, phone } = req.body; 
+    const picture = req.file.path;
       
   Item.findByIdAndUpdate(itemId, { title, category, type, size, condition, location, email, phone, picture }, { new: true })
     .then(updatedItem => res.redirect(`/connect/mydonations/${updatedItem._id}`)) // go to the details page to see the updates

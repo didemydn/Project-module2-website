@@ -166,8 +166,8 @@ router.post('/profile/edit', isLoggedIn, (req, res) => {
 
   /* POST LOGOUT*/
 
-
 router.post('/logout', isLoggedIn, (req,res) =>{
+  req.session.currentUser = null;
     req.session.destroy(err => {
       if (err) console.log(err);
       res.redirect('/');
